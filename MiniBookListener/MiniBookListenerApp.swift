@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 @main
 struct MiniBookListenerApp: App {
+    let environment = AudioPlayerEnvironment(audioManager: AudioManager(), mainQueue: .main)
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AudioPlayerView(store: Store(initialState: AudioPlayerFeature.State()) {
+                AudioPlayerFeature(environment: environment, bundleName: "Fables by Glibov")
+            })
         }
     }
 }

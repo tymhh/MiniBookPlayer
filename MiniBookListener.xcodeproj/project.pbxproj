@@ -14,6 +14,13 @@
 		A33187252B10DADA006445E4 /* MiniBookListenerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33187242B10DADA006445E4 /* MiniBookListenerTests.swift */; };
 		A331872F2B10DADA006445E4 /* MiniBookListenerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A331872E2B10DADA006445E4 /* MiniBookListenerUITests.swift */; };
 		A33187312B10DADA006445E4 /* MiniBookListenerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33187302B10DADA006445E4 /* MiniBookListenerUITestsLaunchTests.swift */; };
+		A331873F2B10DBDD006445E4 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = A331873E2B10DBDD006445E4 /* ComposableArchitecture */; };
+		A33187432B13A494006445E4 /* Fables by Glibov.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A33187422B13A494006445E4 /* Fables by Glibov.bundle */; };
+		A33187462B1404D2006445E4 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33187452B1404D2006445E4 /* AudioManager.swift */; };
+		A33187482B14069C006445E4 /* AudioPlayerFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33187472B14069C006445E4 /* AudioPlayerFeature.swift */; };
+		A331874B2B140962006445E4 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A331874A2B140962006445E4 /* ActionButton.swift */; };
+		A331874D2B14097A006445E4 /* SnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A331874C2B14097A006445E4 /* SnackbarView.swift */; };
+		A331874F2B1409C9006445E4 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A331874E2B1409C9006445E4 /* Utility.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +52,12 @@
 		A331872A2B10DADA006445E4 /* MiniBookListenerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MiniBookListenerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A331872E2B10DADA006445E4 /* MiniBookListenerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniBookListenerUITests.swift; sourceTree = "<group>"; };
 		A33187302B10DADA006445E4 /* MiniBookListenerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniBookListenerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A33187422B13A494006445E4 /* Fables by Glibov.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "Fables by Glibov.bundle"; sourceTree = "<group>"; };
+		A33187452B1404D2006445E4 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
+		A33187472B14069C006445E4 /* AudioPlayerFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerFeature.swift; sourceTree = "<group>"; };
+		A331874A2B140962006445E4 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
+		A331874C2B14097A006445E4 /* SnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarView.swift; sourceTree = "<group>"; };
+		A331874E2B1409C9006445E4 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A331873F2B10DBDD006445E4 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,11 +109,15 @@
 		A33187112B10DAD8006445E4 /* MiniBookListener */ = {
 			isa = PBXGroup;
 			children = (
+				A33187502B1409D4006445E4 /* Resources */,
+				A33187492B14094A006445E4 /* Views */,
+				A33187442B140435006445E4 /* AudioPlayer */,
 				A33187122B10DAD8006445E4 /* MiniBookListenerApp.swift */,
 				A33187142B10DAD8006445E4 /* ContentView.swift */,
 				A33187162B10DADA006445E4 /* Assets.xcassets */,
 				A33187182B10DADA006445E4 /* MiniBookListener.entitlements */,
 				A33187192B10DADA006445E4 /* Preview Content */,
+				A331874E2B1409C9006445E4 /* Utility.swift */,
 			);
 			path = MiniBookListener;
 			sourceTree = "<group>";
@@ -129,6 +147,32 @@
 			path = MiniBookListenerUITests;
 			sourceTree = "<group>";
 		};
+		A33187442B140435006445E4 /* AudioPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				A33187452B1404D2006445E4 /* AudioManager.swift */,
+				A33187472B14069C006445E4 /* AudioPlayerFeature.swift */,
+			);
+			path = AudioPlayer;
+			sourceTree = "<group>";
+		};
+		A33187492B14094A006445E4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A331874A2B140962006445E4 /* ActionButton.swift */,
+				A331874C2B14097A006445E4 /* SnackbarView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A33187502B1409D4006445E4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A33187422B13A494006445E4 /* Fables by Glibov.bundle */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -145,6 +189,9 @@
 			dependencies = (
 			);
 			name = MiniBookListener;
+			packageProductDependencies = (
+				A331873E2B10DBDD006445E4 /* ComposableArchitecture */,
+			);
 			productName = MiniBookListener;
 			productReference = A331870F2B10DAD8006445E4 /* MiniBookListener.app */;
 			productType = "com.apple.product-type.application";
@@ -217,6 +264,9 @@
 				Base,
 			);
 			mainGroup = A33187062B10DAD8006445E4;
+			packageReferences = (
+				A331873D2B10DBDD006445E4 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			productRefGroup = A33187102B10DAD8006445E4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -233,6 +283,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A33187432B13A494006445E4 /* Fables by Glibov.bundle in Resources */,
 				A331871B2B10DADA006445E4 /* Preview Assets.xcassets in Resources */,
 				A33187172B10DADA006445E4 /* Assets.xcassets in Resources */,
 			);
@@ -259,8 +310,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A331874F2B1409C9006445E4 /* Utility.swift in Sources */,
+				A33187462B1404D2006445E4 /* AudioManager.swift in Sources */,
+				A331874D2B14097A006445E4 /* SnackbarView.swift in Sources */,
 				A33187152B10DAD8006445E4 /* ContentView.swift in Sources */,
+				A33187482B14069C006445E4 /* AudioPlayerFeature.swift in Sources */,
 				A33187132B10DAD8006445E4 /* MiniBookListenerApp.swift in Sources */,
+				A331874B2B140962006445E4 /* ActionButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,7 +498,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tymh.MiniBookListener;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -480,7 +537,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tymh.MiniBookListener;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -617,6 +675,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A331873D2B10DBDD006445E4 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A331873E2B10DBDD006445E4 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A331873D2B10DBDD006445E4 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A33187072B10DAD8006445E4 /* Project object */;
 }
