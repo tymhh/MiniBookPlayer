@@ -17,6 +17,7 @@ struct ActionButton: View {
             Image(systemName: imageName)
                 .resizable()
                 .frame(width: size, height: size, alignment: .center)
+                .tint(Color.black)
         }
     }
 }

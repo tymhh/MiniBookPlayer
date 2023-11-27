@@ -12,7 +12,7 @@ import ComposableArchitecture
     let environment = AudioPlayerEnvironment(audioManager: AudioManager(), mainQueue: .main)
     
     return AudioPlayerView(store: Store(initialState: AudioPlayerFeature.State()) {
-        AudioPlayerFeature(environment: environment, bundleName: "Fables by Glibov")
+        AudioPlayerFeature(environment: environment, bundleName: MiniBookListenerApp.Constant.bundleName)
     })
 }
 
@@ -28,7 +28,6 @@ struct AudioPlayerView: View {
         static let speedValuePrefix: String = "Speed x"
         static let imagePadding: CGFloat = 64
         static let textPadding: CGFloat = 16
-        static let buttonPadding: CGFloat = 32
         static let stackSpacing: CGFloat = 20
     }
     
@@ -51,6 +50,7 @@ struct AudioPlayerView: View {
                             .aspectRatio(contentMode: .fit)
                             .padding(.leading, Constant.imagePadding)
                             .padding(.trailing, Constant.imagePadding)
+                            .padding(.bottom, Constant.stackSpacing)
                     }
                     Text("\(Constant.keyPointPrefix) \(viewStore.currentAudio) / \(viewStore.numberOfAudio)")
                     if let audioTitle = viewStore.currentAudioTitle {
@@ -82,20 +82,13 @@ struct AudioPlayerView: View {
                     Button(action: { viewStore.send(.changePlaybackSpeed)}) {
                         let stringValue = Formatter.decimal.string(from: viewStore.playbackSpeed as NSNumber) ?? "\(viewStore.playbackSpeed)"
                         Text(Constant.speedValuePrefix + stringValue)
-                    }.padding(.bottom, Constant.buttonPadding)
-                    
-                    HStack(spacing: Constant.stackSpacing) {
-                        ActionButton(imageName: "backward.end",
-                                     action: { viewStore.send(.previousButtonTapped) })
-                        ActionButton(imageName: "gobackward.5",
-                                     action: { viewStore.send(.backwardButtonTapped) })
-                        ActionButton(imageName: viewStore.isPlaying ? "pause.circle" : "play.circle",
-                                     action: { viewStore.send(.playPauseButtonTapped) })
-                        ActionButton(imageName: "goforward.10",
-                                     action: { viewStore.send(.forwardButtonTapped) })
-                        ActionButton(imageName: "forward.end",
-                                     action: { viewStore.send(.nextButtonTapped) })
                     }
+                    .foregroundColor(.black)
+                    .padding()
+                    .background(Color("buttonBackground"))
+                    .cornerRadius(8)
+                    
+                    ActionBar(viewStore: viewStore).padding(.top, Constant.textPadding)
                 }
             }.onAppear {
                 store.send(.loadAudio)
@@ -103,7 +96,7 @@ struct AudioPlayerView: View {
                 showError = errorMessage != nil
             }
             .animation(.easeInOut, value: showError)
-        }
+        }.background(Color("backgroundColor"))
     }
     
     private func hideSnackbar() {
