@@ -15,7 +15,7 @@ struct ActionBar: View {
         static let midScale: CGFloat = 0.8
     }
     
-    var viewStore: ViewStore<AudioPlayerState, AudioPlayerAction>
+    var viewStore: ViewStoreOf<AudioPlayerFeature>
     
     var body: some View {
         HStack(spacing: Constant.stackSpacing) {

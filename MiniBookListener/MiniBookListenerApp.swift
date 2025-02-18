@@ -14,7 +14,7 @@ struct MiniBookListenerApp: App {
         static let bundleName: String = "Fables by Glibov"
     }
     
-    let environment = AudioPlayerEnvironment(audioManager: AudioManager(), mainQueue: .main)
+    let environment = AudioPlayerEnvironment(audioManager: PlayerService(), mainQueue: .main)
     var body: some Scene {
         WindowGroup {
             AudioPlayerView(store: Store(initialState: AudioPlayerFeature.State()) {

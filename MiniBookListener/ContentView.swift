@@ -9,15 +9,15 @@ import SwiftUI
 import ComposableArchitecture
 
 #Preview {
-    let environment = AudioPlayerEnvironment(audioManager: AudioManager(), mainQueue: .main)
+    let environment = AudioPlayerEnvironment(audioManager: PlayerService(), mainQueue: .main)
     
-    return AudioPlayerView(store: Store(initialState: AudioPlayerFeature.State()) {
+    AudioPlayerView(store: Store(initialState: AudioPlayerFeature.State()) {
         AudioPlayerFeature(environment: environment, bundleName: MiniBookListenerApp.Constant.bundleName)
     })
 }
 
 struct AudioPlayerView: View {
-    var store: Store<AudioPlayerState, AudioPlayerAction>
+    var store: StoreOf<AudioPlayerFeature>
     @State private var sliderValue: TimeInterval = 0
     @State private var isSliderEditing: Bool = false
     @State private var showError: Bool = false

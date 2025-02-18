@@ -11,41 +11,14 @@ import AVFoundation
 import Combine
 
 struct AudioPlayerEnvironment {
-    var audioManager: AudioManager
+    var audioManager: PlayerService
     var mainQueue: AnySchedulerOf<DispatchQueue>
-}
-
-struct AudioPlayerState: Equatable {
-    var isPlaying: Bool = false
-    var currentTime: TimeInterval = 0
-    var duration: TimeInterval = 0
-    var playbackSpeed: Double = 1.0
-    var coverImage: UIImage?
-    var currentAudioTitle: String?
-    var currentAudio: Int = 1
-    var numberOfAudio: Int = 0
-    var errorMessage: String?
-}
-
-enum AudioPlayerAction {
-    case loadAudio
-    case audioLoaded(Bool)
-    case metadataResolved(String?)
-    case setError(String?)
-    case playPauseButtonTapped
-    case backwardButtonTapped
-    case forwardButtonTapped
-    case previousButtonTapped
-    case nextButtonTapped
-    case seek(TimeInterval)
-    case changePlaybackSpeed
-    case updateCurrentTime(TimeInterval)
 }
 
 struct CurrentTimeUpdaterID: Hashable {}
 
 @Reducer
-struct AudioPlayerFeature {
+struct AudioPlayerFeature: Reducer {
     let environment: AudioPlayerEnvironment
     let bundleName: String
     
@@ -57,7 +30,37 @@ struct AudioPlayerFeature {
         static let defaultSpeed: Double = 1.0
     }
     
-    var body: some Reducer<AudioPlayerState, AudioPlayerAction> {
+    @ObservableState
+    struct State: Equatable {
+        var isPlaying: Bool = false
+        var currentTime: TimeInterval = 0
+        var duration: TimeInterval = 0
+        var playbackSpeed: Double = 1.0
+        var coverImage: UIImage?
+        var currentAudioTitle: String?
+        var currentAudio: Int = 1
+        var numberOfAudio: Int = 0
+        var errorMessage: String?
+    }
+    
+    enum Action {
+        case loadAudio
+        case audioLoaded(Bool)
+        case metadataResolved(String?)
+        case setError(String?)
+        case playPauseButtonTapped
+        case backwardButtonTapped
+        case forwardButtonTapped
+        case previousButtonTapped
+        case nextButtonTapped
+        case seek(TimeInterval)
+        case changePlaybackSpeed
+        case updateCurrentTime(TimeInterval)
+    }
+    
+    @Dependency(\.booksClient) var booksClient
+    
+    var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .playPauseButtonTapped:
@@ -65,7 +68,7 @@ struct AudioPlayerFeature {
                     try environment.audioManager.play()
                 } catch {
                     return .run { send in
-                        await send.callAsFunction(.setError(error.localizedDescription))
+                        await send(.setError(error.localizedDescription))
                     }
                 }
                 state.isPlaying.toggle()
@@ -74,7 +77,7 @@ struct AudioPlayerFeature {
                     return .publisher {
                         environment.audioManager.currentTimePublisher
                             .receive(on: environment.mainQueue)
-                            .map(AudioPlayerAction.updateCurrentTime)
+                            .map(Action.updateCurrentTime)
                     }.cancellable(id: CurrentTimeUpdaterID(), cancelInFlight: true)
                 } else {
                     environment.audioManager.pause()
@@ -92,7 +95,7 @@ struct AudioPlayerFeature {
                     environment.audioManager.seek(to: newTime)
                     return .none
                 } else {
-                    return .run { send in await send.callAsFunction(.nextButtonTapped) }
+                    return .run { send in await send(.nextButtonTapped) }
                 }
             case .previousButtonTapped:
                 do {
@@ -101,15 +104,15 @@ struct AudioPlayerFeature {
                     return .run { send in
                         if isLoaded {
                             try environment.audioManager.play()
-                            await send.callAsFunction(.audioLoaded(true))
-                            await send.callAsFunction(.playPauseButtonTapped)
+                            await send(.audioLoaded(true))
+                            await send(.playPauseButtonTapped)
                         } else {
-                            await send.callAsFunction(.setError("Previous audio can't be loaded"))
+                            await send(.setError("Previous audio can't be loaded"))
                         }
                     }
                 } catch {
                     return .run { send in
-                        await send.callAsFunction(.setError(error.localizedDescription))
+                        await send(.setError(error.localizedDescription))
                     }
                 }
             case .nextButtonTapped:
@@ -119,15 +122,15 @@ struct AudioPlayerFeature {
                     return .run { send in
                         if isLoaded {
                             try environment.audioManager.play()
-                            await send.callAsFunction(.audioLoaded(true))
-                            await send.callAsFunction(.playPauseButtonTapped)
+                            await send(.audioLoaded(true))
+                            await send(.playPauseButtonTapped)
                         } else {
-                            await send.callAsFunction(.setError("Next audio can't be loaded"))
+                            await send(.setError("Next audio can't be loaded"))
                         }
                     }
                 } catch {
                     return .run { send in
-                        await send.callAsFunction(.setError(error.localizedDescription))
+                        await send(.setError(error.localizedDescription))
                     }
                 }
             case .seek(let time):
@@ -141,26 +144,33 @@ struct AudioPlayerFeature {
                 return .none
             case .loadAudio:
                 return .run { send in
-                    let isSuccess = try environment.audioManager.loadAudioFiles(from: bundleName)
-                    await send.callAsFunction(.audioLoaded(isSuccess))
+                    let result = try booksClient.loadBook(bundleName)
+                    switch result {
+                    case .success(let book):
+                        environment.audioManager.setCurrentBook(book)
+                        let isSuccess = try environment.audioManager.loadCurrentAudioFile()
+                        await send(.audioLoaded(isSuccess))
+                    case .failure(let error):
+                        await send(.setError(error.localizedDescription))
+                    }
                 }
             case .audioLoaded(let isSuccess):
                 if isSuccess {
                     state.duration = environment.audioManager.audioPlayer?.duration ?? 0
                     state.coverImage = environment.audioManager.getCoverImage().flatMap { UIImage(data: $0) }
                     state.currentAudio = environment.audioManager.currentAudioIndex + 1
-                    state.numberOfAudio = environment.audioManager.audioFiles.count
+                    state.numberOfAudio = environment.audioManager.currentBook?.audioFiles.count ?? 0
                 }
                 return .run { send in
                     let title = await environment.audioManager.extractCommonMetadata()
-                    await send.callAsFunction(.metadataResolved(title))
+                    await send(.metadataResolved(title))
                 }
             case .metadataResolved(let title):
                 state.currentAudioTitle = title
                 return .none
             case .updateCurrentTime(let newTime):
                 if newTime == state.duration {
-                    return .run { send in await send.callAsFunction(.nextButtonTapped) }
+                    return .run { send in await send(.nextButtonTapped) }
                 } else {
                     state.currentTime = newTime
                     return .none

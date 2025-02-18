@@ -14,6 +14,9 @@ class PlayerServiceTests: XCTestCase {
     override func setUp() {
         super.setUp()
         mockAudioManager = MockPlayerService()
+        mockAudioManager.setCurrentBook(.init(title: "Mock Book",
+                                              audioFiles: [URL(string: "file1.mp3")!, URL(string: "file2.mp3")!],
+                                              coverImageFile: nil))
     }
 
     override func tearDown() {
@@ -22,7 +25,7 @@ class PlayerServiceTests: XCTestCase {
     }
 
     func testLoadAudioFiles() throws {
-        let result = try mockAudioManager.loadAudioFiles(from: "TestFolder")
+        let result = try mockAudioManager.loadCurrentAudioFile()
         XCTAssertTrue(result)
         XCTAssertTrue(mockAudioManager.didLoadAudioFiles)
     }
@@ -38,14 +41,12 @@ class PlayerServiceTests: XCTestCase {
     }
 
     func testNextAudio() throws {
-        mockAudioManager.audioFiles = [URL(string: "file1.mp3")!, URL(string: "file2.mp3")!]
         let result = try mockAudioManager.next()
         XCTAssertTrue(result)
         XCTAssertEqual(mockAudioManager.currentAudioIndex, 1)
     }
     
     func testPreviousAudio() throws {
-        mockAudioManager.audioFiles = [URL(string: "file1.mp3")!, URL(string: "file2.mp3")!]
         mockAudioManager.currentAudioIndex = 1
         let result = try mockAudioManager.previous()
         XCTAssertTrue(result)

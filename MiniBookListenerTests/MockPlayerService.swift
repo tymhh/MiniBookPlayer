@@ -12,8 +12,7 @@ import Combine
 class MockPlayerService: PlayerServiceProtocol {
     var audioPlayer: AVAudioPlayer? = nil
     var currentAudioIndex: Int = 0
-    var audioFiles: [URL] = []
-    var coverImageFile: URL?
+    var currentBook: Book? = .init(title: "", audioFiles: [], coverImageFile: nil)
     
     private var playbackTimePublisher = PassthroughSubject<TimeInterval, Never>()
     var currentTimePublisher: AnyPublisher<TimeInterval, Never> {
@@ -24,8 +23,12 @@ class MockPlayerService: PlayerServiceProtocol {
     var didLoadAudioFiles = false
     var playbackSpeed: Double = 1.0
     var seekTime: TimeInterval = 0.0
-
-    func loadAudioFiles(from folderName: String) throws -> Bool {
+    
+    func setCurrentBook(_ value: Book) {
+        self.currentBook = value
+    }
+    
+    func loadCurrentAudioFile() throws -> Bool {
         didLoadAudioFiles = true
         return true
     }

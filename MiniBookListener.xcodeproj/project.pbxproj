@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,14 +15,16 @@
 		A33187312B10DADA006445E4 /* MiniBookListenerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33187302B10DADA006445E4 /* MiniBookListenerUITestsLaunchTests.swift */; };
 		A331873F2B10DBDD006445E4 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = A331873E2B10DBDD006445E4 /* ComposableArchitecture */; };
 		A33187432B13A494006445E4 /* Fables by Glibov.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A33187422B13A494006445E4 /* Fables by Glibov.bundle */; };
-		A33187462B1404D2006445E4 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33187452B1404D2006445E4 /* AudioManager.swift */; };
+		A33187462B1404D2006445E4 /* PlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33187452B1404D2006445E4 /* PlayerService.swift */; };
 		A33187482B14069C006445E4 /* AudioPlayerFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33187472B14069C006445E4 /* AudioPlayerFeature.swift */; };
 		A331874B2B140962006445E4 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A331874A2B140962006445E4 /* ActionButton.swift */; };
 		A331874D2B14097A006445E4 /* SnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A331874C2B14097A006445E4 /* SnackbarView.swift */; };
 		A331874F2B1409C9006445E4 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A331874E2B1409C9006445E4 /* Utility.swift */; };
 		A33187542B149DAA006445E4 /* ActionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33187532B149DAA006445E4 /* ActionBar.swift */; };
 		A378299F2D64D10F0068C951 /* MockPlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378299E2D64D10F0068C951 /* MockPlayerService.swift */; };
-		A37829C52D64D1AE0068C951 /* AudioManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37829C42D64D1AE0068C951 /* AudioManagerTests.swift */; };
+		A37829C52D64D1AE0068C951 /* PlayerServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37829C42D64D1AE0068C951 /* PlayerServiceTests.swift */; };
+		A37829C92D64D4D60068C951 /* BooksClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37829C82D64D4D60068C951 /* BooksClient.swift */; };
+		A37829CD2D64D5B20068C951 /* BookServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37829CC2D64D5B20068C951 /* BookServiceTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,15 +56,21 @@
 		A331872E2B10DADA006445E4 /* MiniBookListenerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniBookListenerUITests.swift; sourceTree = "<group>"; };
 		A33187302B10DADA006445E4 /* MiniBookListenerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniBookListenerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A33187422B13A494006445E4 /* Fables by Glibov.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "Fables by Glibov.bundle"; sourceTree = "<group>"; };
-		A33187452B1404D2006445E4 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
+		A33187452B1404D2006445E4 /* PlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerService.swift; sourceTree = "<group>"; };
 		A33187472B14069C006445E4 /* AudioPlayerFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerFeature.swift; sourceTree = "<group>"; };
 		A331874A2B140962006445E4 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		A331874C2B14097A006445E4 /* SnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarView.swift; sourceTree = "<group>"; };
 		A331874E2B1409C9006445E4 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		A33187532B149DAA006445E4 /* ActionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionBar.swift; sourceTree = "<group>"; };
 		A378299E2D64D10F0068C951 /* MockPlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlayerService.swift; sourceTree = "<group>"; };
-		A37829C42D64D1AE0068C951 /* AudioManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManagerTests.swift; sourceTree = "<group>"; };
+		A37829C42D64D1AE0068C951 /* PlayerServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerServiceTests.swift; sourceTree = "<group>"; };
+		A37829C82D64D4D60068C951 /* BooksClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksClient.swift; sourceTree = "<group>"; };
+		A37829CC2D64D5B20068C951 /* BookServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookServiceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		A37829CE2D64D89C0068C951 /* Model */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Model; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		A331870C2B10DAD8006445E4 /* Frameworks */ = {
@@ -113,6 +121,8 @@
 		A33187112B10DAD8006445E4 /* MiniBookListener */ = {
 			isa = PBXGroup;
 			children = (
+				A37829CE2D64D89C0068C951 /* Model */,
+				A37829C72D64D4640068C951 /* Services */,
 				A33187502B1409D4006445E4 /* Resources */,
 				A33187492B14094A006445E4 /* Views */,
 				A33187442B140435006445E4 /* AudioPlayer */,
@@ -137,7 +147,8 @@
 		A33187232B10DADA006445E4 /* MiniBookListenerTests */ = {
 			isa = PBXGroup;
 			children = (
-				A37829C42D64D1AE0068C951 /* AudioManagerTests.swift */,
+				A37829CC2D64D5B20068C951 /* BookServiceTests.swift */,
+				A37829C42D64D1AE0068C951 /* PlayerServiceTests.swift */,
 				A378299E2D64D10F0068C951 /* MockPlayerService.swift */,
 			);
 			path = MiniBookListenerTests;
@@ -155,7 +166,7 @@
 		A33187442B140435006445E4 /* AudioPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				A33187452B1404D2006445E4 /* AudioManager.swift */,
+				A33187452B1404D2006445E4 /* PlayerService.swift */,
 				A33187472B14069C006445E4 /* AudioPlayerFeature.swift */,
 			);
 			path = AudioPlayer;
@@ -179,6 +190,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		A37829C72D64D4640068C951 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A37829C82D64D4D60068C951 /* BooksClient.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -193,6 +212,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				A37829CE2D64D89C0068C951 /* Model */,
 			);
 			name = MiniBookListener;
 			packageProductDependencies = (
@@ -317,9 +339,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A331874F2B1409C9006445E4 /* Utility.swift in Sources */,
-				A33187462B1404D2006445E4 /* AudioManager.swift in Sources */,
+				A33187462B1404D2006445E4 /* PlayerService.swift in Sources */,
 				A331874D2B14097A006445E4 /* SnackbarView.swift in Sources */,
 				A33187152B10DAD8006445E4 /* ContentView.swift in Sources */,
+				A37829C92D64D4D60068C951 /* BooksClient.swift in Sources */,
 				A33187482B14069C006445E4 /* AudioPlayerFeature.swift in Sources */,
 				A33187542B149DAA006445E4 /* ActionBar.swift in Sources */,
 				A33187132B10DAD8006445E4 /* MiniBookListenerApp.swift in Sources */,
@@ -331,7 +354,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A37829C52D64D1AE0068C951 /* AudioManagerTests.swift in Sources */,
+				A37829CD2D64D5B20068C951 /* BookServiceTests.swift in Sources */,
+				A37829C52D64D1AE0068C951 /* PlayerServiceTests.swift in Sources */,
 				A378299F2D64D10F0068C951 /* MockPlayerService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

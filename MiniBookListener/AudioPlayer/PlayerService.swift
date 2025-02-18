@@ -1,5 +1,5 @@
 //
-//  AudioManager.swift
+//  PlayerService.swift
 //  MiniBookListener
 //
 //  Created by Tim Hazhyi on 26.11.2023.
@@ -12,11 +12,11 @@ import Combine
 protocol PlayerServiceProtocol {
     var audioPlayer: AVAudioPlayer? { get }
     var currentAudioIndex: Int { get }
-    var audioFiles: [URL] { get }
-    var coverImageFile: URL? { get }
+    var currentBook: Book? { get }
     var currentTimePublisher: AnyPublisher<TimeInterval, Never> { get }
     
-    func loadAudioFiles(from folderName: String) throws -> Bool
+    func setCurrentBook(_ value: Book)
+    func loadCurrentAudioFile() throws -> Bool
     func play() throws
     func pause()
     func next() throws -> Bool
@@ -28,16 +28,14 @@ protocol PlayerServiceProtocol {
     func metadata(forIdentifier identifier: AVMetadataIdentifier) async -> String?
 }
 
-final class AudioManager: NSObject, PlayerServiceProtocol {
+final class PlayerService: NSObject, PlayerServiceProtocol {
     struct Constant {
         static let defaultRate: Float = 1.0
-        static let coverImageName: String = "cover.jpg"
     }
     
     private(set) var audioPlayer: AVAudioPlayer?
     private(set) var currentAudioIndex: Int = 0
-    private(set) var audioFiles: [URL] = []
-    private(set) var coverImageFile: URL?
+    private(set) var currentBook: Book?
     
     private var playbackTimePublisher = PassthroughSubject<TimeInterval, Never>()
 
@@ -45,25 +43,12 @@ final class AudioManager: NSObject, PlayerServiceProtocol {
         playbackTimePublisher.eraseToAnyPublisher()
     }
     
-    func loadAudioFiles(from folderName: String) throws -> Bool {
-        guard let urls = Bundle.main.urls(forResourcesWithExtension: nil, subdirectory: "\(folderName).bundle") else {
-            return false
-        }
-        audioFiles = urls.filter {
-            if isAudioFile(fileURL: $0) {
-                return true
-            } else if isImageFile(fileURL: $0), $0.lastPathComponent == Constant.coverImageName {
-                coverImageFile = $0
-                return false
-            } else {
-                return false
-            }
-        }.sorted(by: { $0.lastPathComponent < $1.lastPathComponent })
-        return try loadCurrentAudioFile()
+    func setCurrentBook(_ value: Book) {
+        self.currentBook = value
     }
     
-    private func loadCurrentAudioFile() throws -> Bool {
-        let file = audioFiles[currentAudioIndex]
+    func loadCurrentAudioFile() throws -> Bool {
+        guard let file = currentBook?.audioFiles[currentAudioIndex] else { return false }
         let rate = audioPlayer?.rate
         audioPlayer = try AVAudioPlayer(contentsOf: file)
         audioPlayer?.enableRate = true
@@ -84,7 +69,7 @@ final class AudioManager: NSObject, PlayerServiceProtocol {
     }
     
     func next() throws -> Bool {
-        guard currentAudioIndex + 1 < audioFiles.count else { return false }
+        guard currentAudioIndex + 1 < currentBook?.audioFiles.count ?? 0 else { return false }
         currentAudioIndex += 1
         return try loadCurrentAudioFile()
     }
@@ -112,12 +97,12 @@ final class AudioManager: NSObject, PlayerServiceProtocol {
     }
     
     func getCoverImage() -> Data? {
-        guard let coverImageURL = coverImageFile else { return nil }
+        guard let coverImageURL = currentBook?.coverImageFile else { return nil }
         return try? .init(contentsOf: coverImageURL)
     }
     
     func metadata(forIdentifier identifier: AVMetadataIdentifier) async -> String? {
-        guard currentAudioIndex < audioFiles.count else { return nil }
+        guard let audioFiles = currentBook?.audioFiles, currentAudioIndex < audioFiles.count else { return nil }
         let asset = AVAsset(url: audioFiles[currentAudioIndex])
         
         do {
@@ -136,21 +121,9 @@ final class AudioManager: NSObject, PlayerServiceProtocol {
     func extractCommonMetadata() async -> String? {
         return await metadata(forIdentifier: .commonIdentifierTitle)
     }
-    
-    func isAudioFile(fileURL: URL) -> Bool {
-        let audioFileExtensions = ["mp3"]
-        let fileExtension = fileURL.pathExtension.lowercased()
-        return audioFileExtensions.contains(fileExtension)
-    }
-    
-    func isImageFile(fileURL: URL) -> Bool {
-        let audioFileExtensions = ["jpg"]
-        let fileExtension = fileURL.pathExtension.lowercased()
-        return audioFileExtensions.contains(fileExtension)
-    }
 }
 
-extension AudioManager: AVAudioPlayerDelegate {
+extension PlayerService: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         guard flag else { return }
         playbackTimePublisher.send(player.duration)
