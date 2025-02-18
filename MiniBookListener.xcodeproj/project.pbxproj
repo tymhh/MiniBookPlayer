@@ -11,7 +11,6 @@
 		A33187152B10DAD8006445E4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33187142B10DAD8006445E4 /* ContentView.swift */; };
 		A33187172B10DADA006445E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A33187162B10DADA006445E4 /* Assets.xcassets */; };
 		A331871B2B10DADA006445E4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A331871A2B10DADA006445E4 /* Preview Assets.xcassets */; };
-		A33187252B10DADA006445E4 /* MiniBookListenerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33187242B10DADA006445E4 /* MiniBookListenerTests.swift */; };
 		A331872F2B10DADA006445E4 /* MiniBookListenerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A331872E2B10DADA006445E4 /* MiniBookListenerUITests.swift */; };
 		A33187312B10DADA006445E4 /* MiniBookListenerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33187302B10DADA006445E4 /* MiniBookListenerUITestsLaunchTests.swift */; };
 		A331873F2B10DBDD006445E4 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = A331873E2B10DBDD006445E4 /* ComposableArchitecture */; };
@@ -22,6 +21,8 @@
 		A331874D2B14097A006445E4 /* SnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A331874C2B14097A006445E4 /* SnackbarView.swift */; };
 		A331874F2B1409C9006445E4 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A331874E2B1409C9006445E4 /* Utility.swift */; };
 		A33187542B149DAA006445E4 /* ActionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33187532B149DAA006445E4 /* ActionBar.swift */; };
+		A378299F2D64D10F0068C951 /* MockPlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378299E2D64D10F0068C951 /* MockPlayerService.swift */; };
+		A37829C52D64D1AE0068C951 /* AudioManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37829C42D64D1AE0068C951 /* AudioManagerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,7 +50,6 @@
 		A33187182B10DADA006445E4 /* MiniBookListener.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MiniBookListener.entitlements; sourceTree = "<group>"; };
 		A331871A2B10DADA006445E4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A33187202B10DADA006445E4 /* MiniBookListenerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MiniBookListenerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A33187242B10DADA006445E4 /* MiniBookListenerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniBookListenerTests.swift; sourceTree = "<group>"; };
 		A331872A2B10DADA006445E4 /* MiniBookListenerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MiniBookListenerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A331872E2B10DADA006445E4 /* MiniBookListenerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniBookListenerUITests.swift; sourceTree = "<group>"; };
 		A33187302B10DADA006445E4 /* MiniBookListenerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniBookListenerUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -60,6 +60,8 @@
 		A331874C2B14097A006445E4 /* SnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarView.swift; sourceTree = "<group>"; };
 		A331874E2B1409C9006445E4 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		A33187532B149DAA006445E4 /* ActionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionBar.swift; sourceTree = "<group>"; };
+		A378299E2D64D10F0068C951 /* MockPlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlayerService.swift; sourceTree = "<group>"; };
+		A37829C42D64D1AE0068C951 /* AudioManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManagerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,7 +137,8 @@
 		A33187232B10DADA006445E4 /* MiniBookListenerTests */ = {
 			isa = PBXGroup;
 			children = (
-				A33187242B10DADA006445E4 /* MiniBookListenerTests.swift */,
+				A37829C42D64D1AE0068C951 /* AudioManagerTests.swift */,
+				A378299E2D64D10F0068C951 /* MockPlayerService.swift */,
 			);
 			path = MiniBookListenerTests;
 			sourceTree = "<group>";
@@ -328,7 +331,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A33187252B10DADA006445E4 /* MiniBookListenerTests.swift in Sources */,
+				A37829C52D64D1AE0068C951 /* AudioManagerTests.swift in Sources */,
+				A378299F2D64D10F0068C951 /* MockPlayerService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

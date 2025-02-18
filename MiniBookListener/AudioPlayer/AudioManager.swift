@@ -9,7 +9,26 @@ import Foundation
 import AVFoundation
 import Combine
 
-class AudioManager: NSObject {
+protocol PlayerServiceProtocol {
+    var audioPlayer: AVAudioPlayer? { get }
+    var currentAudioIndex: Int { get }
+    var audioFiles: [URL] { get }
+    var coverImageFile: URL? { get }
+    var currentTimePublisher: AnyPublisher<TimeInterval, Never> { get }
+    
+    func loadAudioFiles(from folderName: String) throws -> Bool
+    func play() throws
+    func pause()
+    func next() throws -> Bool
+    func previous() throws -> Bool
+    func changePlaybackSpeed(to speed: Double)
+    func startPlaybackTimeUpdates()
+    func seek(to time: TimeInterval)
+    func getCoverImage() -> Data?
+    func metadata(forIdentifier identifier: AVMetadataIdentifier) async -> String?
+}
+
+final class AudioManager: NSObject, PlayerServiceProtocol {
     struct Constant {
         static let defaultRate: Float = 1.0
         static let coverImageName: String = "cover.jpg"
