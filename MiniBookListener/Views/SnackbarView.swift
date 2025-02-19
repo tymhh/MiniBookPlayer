@@ -17,6 +17,5 @@ struct SnackbarView: View {
             .cornerRadius(8)
             .shadow(radius: 5)
             .padding()
-            .transition(.move(edge: .bottom))
     }
 }

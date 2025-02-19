@@ -10,19 +10,22 @@ import ComposableArchitecture
 import Combine
 import AVFoundation
 
-enum PlayerServiceError: Error {
+enum PlayerServiceError: String, LocalizedError {
+    case lastFileInBook
     case fileNotExist
+    
+    var errorDescription: String? { self.rawValue }
 }
 
 @DependencyClient
 struct PlayerClient {
     var loadFiles: @Sendable ([URL]) throws -> Void
     var setTimePublisher: @Sendable (PassthroughSubject<TimeInterval, Never>) throws -> Void
-    var loadCurrentAudioFile: @Sendable () throws -> (Bool, TimeInterval, Int)
-    var play: @Sendable () -> Void
+    var loadCurrentAudioFile: @Sendable () throws -> (TimeInterval, Int)
+    var play: @Sendable () throws -> Bool
     var pause: @Sendable () -> Void
-    var next: @Sendable () throws -> (Bool, TimeInterval, Int)
-    var previous: @Sendable () throws -> (Bool, TimeInterval, Int)
+    var next: @Sendable () throws -> (TimeInterval, Int)
+    var previous: @Sendable () throws -> (TimeInterval, Int)
     var changePlaybackSpeed: @Sendable (Float) throws -> Void
     var seek: @Sendable (TimeInterval) throws -> Void
     var metadata: @Sendable () async throws -> String?
@@ -45,7 +48,7 @@ extension PlayerClient: DependencyKey {
             previous: { try service.previous() },
             changePlaybackSpeed: { service.changePlaybackSpeed(to: $0)},
             seek: { service.seek(to: $0) },
-            metadata: { await service.extractCommonMetadata() },
+            metadata: { try await service.extractCommonMetadata() },
             startPlaybackTimeUpdates: { service.startPlaybackTimeUpdates() }
         )
     }()
@@ -81,17 +84,18 @@ private final class PlayerService: NSObject, AVAudioPlayerDelegate {
         self.playbackTimePublisher = publisher
     }
     
-    func loadCurrentAudioFile() throws -> (Bool, TimeInterval, Int) {
+    func loadCurrentAudioFile() throws -> (TimeInterval, Int) {
         let file = files[currentAudioIndex]
         let rate = audioPlayer.rate == 0 ? Constant.defaultRate : audioPlayer.rate
         audioPlayer = try AVAudioPlayer(contentsOf: file)
         audioPlayer.enableRate = true
         audioPlayer.delegate = self
         audioPlayer.rate = rate
-        return (audioPlayer.prepareToPlay(), audioPlayer.duration, currentAudioIndex)
+        audioPlayer.prepareToPlay()
+        return (audioPlayer.duration, currentAudioIndex)
     }
     
-    func play() {
+    func play() -> Bool {
         audioPlayer.play()
     }
     
@@ -99,13 +103,13 @@ private final class PlayerService: NSObject, AVAudioPlayerDelegate {
         audioPlayer.pause()
     }
     
-    func next() throws -> (Bool, TimeInterval, Int) {
-        guard currentAudioIndex + 1 < files.count else { throw PlayerServiceError.fileNotExist }
+    func next() throws -> (TimeInterval, Int) {
+        guard currentAudioIndex + 1 < files.count else { throw PlayerServiceError.lastFileInBook }
         currentAudioIndex += 1
         return try loadCurrentAudioFile()
     }
     
-    func previous() throws -> (Bool, TimeInterval, Int) {
+    func previous() throws -> (TimeInterval, Int) {
         guard currentAudioIndex > 0 else { throw PlayerServiceError.fileNotExist }
         currentAudioIndex -= 1
         return try loadCurrentAudioFile()
@@ -127,24 +131,19 @@ private final class PlayerService: NSObject, AVAudioPlayerDelegate {
         audioPlayer.currentTime = time
     }
     
-    private func metadata(forIdentifier identifier: AVMetadataIdentifier) async -> String? {
+    private func metadata(forIdentifier identifier: AVMetadataIdentifier) async throws -> String? {
         guard currentAudioIndex < files.count else { return nil }
         let asset = AVAsset(url: files[currentAudioIndex])
-        
-        do {
-            let commonMetadata = try await asset.load(.commonMetadata)
-            let metadataItems = AVMetadataItem.metadataItems(from: commonMetadata, filteredByIdentifier: identifier)
-            if let metadataItem = metadataItems.first {
-                let stringValue = try await metadataItem.load(.stringValue)
-                return stringValue
-            }
-            return nil
-        } catch {
-            return nil
+        let commonMetadata = try await asset.load(.commonMetadata)
+        let metadataItems = AVMetadataItem.metadataItems(from: commonMetadata, filteredByIdentifier: identifier)
+        if let metadataItem = metadataItems.first {
+            let stringValue = try await metadataItem.load(.stringValue)
+            return stringValue
         }
+        return nil
     }
     
-    func extractCommonMetadata() async -> String? {
-        return await metadata(forIdentifier: .commonIdentifierTitle)
+    func extractCommonMetadata() async throws -> String? {
+        return try await metadata(forIdentifier: .commonIdentifierTitle)
     }
 }

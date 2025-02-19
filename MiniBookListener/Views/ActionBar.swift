@@ -22,28 +22,31 @@ struct ActionBar: View {
             let isBackwardDisabled = viewStore.currentAudio - 1 <= 0
             ActionButton(
                 imageName: "backward.end.fill",
-                disabled: isBackwardDisabled,
+                disabled: !viewStore.isBookLoaded || isBackwardDisabled,
                 action: { viewStore.send(.previousButtonTapped) }
             ).scaleEffect(Constant.smallScale)
             ActionButton(
                 imageName: "gobackward.5",
+                disabled: !viewStore.isBookLoaded,
                 action: { viewStore.send(.backwardButtonTapped) }
             ).scaleEffect(Constant.midScale)
             
             let imageName = viewStore.isPlaying ? "pause.fill" : "play.fill"
             ActionButton(
                 imageName: imageName,
+                disabled: !viewStore.isBookLoaded,
                 action: { viewStore.send(.playPauseButtonTapped) }
             )
             
             ActionButton(
                 imageName: "goforward.10",
+                disabled: !viewStore.isBookLoaded,
                 action: { viewStore.send(.forwardButtonTapped) }
             ).scaleEffect(Constant.midScale)
             let isForwardDisabled = viewStore.currentAudio == viewStore.numberOfAudio
             ActionButton(
                 imageName: "forward.end.fill",
-                disabled: isForwardDisabled,
+                disabled: !viewStore.isBookLoaded || isForwardDisabled,
                 action: { viewStore.send(.nextButtonTapped) }
             ).scaleEffect(Constant.smallScale)
         }
