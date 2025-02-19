@@ -7,9 +7,11 @@
 import Foundation
 import ComposableArchitecture
 
-enum BooksClientError: Error {
-    case nonExist
-    case emptyFiles
+enum BooksClientError: String, LocalizedError {
+    case bookFileNonExist
+    case bookHasNoFiles
+    
+    var errorDescription: String? { self.rawValue }
 }
 
 @DependencyClient
@@ -25,7 +27,7 @@ extension BooksClient: DependencyKey {
     static let liveValue = Self(
         loadBook: { folderName in
             guard let urls = Bundle.main.urls(forResourcesWithExtension: nil, subdirectory: "\(folderName).bundle") else {
-                return .failure(BooksClientError.nonExist)
+                return .failure(BooksClientError.bookFileNonExist)
             }
             var coverImageFile: URL?
             let audioFiles = urls.filter {
@@ -39,7 +41,7 @@ extension BooksClient: DependencyKey {
                 }
             }.sorted(by: { $0.lastPathComponent < $1.lastPathComponent })
             
-            guard !audioFiles.isEmpty else { return .failure(BooksClientError.emptyFiles) }
+            guard !audioFiles.isEmpty else { return .failure(BooksClientError.bookHasNoFiles) }
             return .success(Book(title: folderName,
                                  audioFiles: audioFiles,
                                  coverImage: coverImageFile.map { try? .init(contentsOf: $0) } ?? nil)
