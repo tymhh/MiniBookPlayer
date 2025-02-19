@@ -40,13 +40,16 @@ extension BooksClient: DependencyKey {
             }.sorted(by: { $0.lastPathComponent < $1.lastPathComponent })
             
             guard !audioFiles.isEmpty else { return .failure(BooksClientError.emptyFiles) }
-            return .success(Book(title: folderName, audioFiles: audioFiles, coverImageFile: coverImageFile))
+            return .success(Book(title: folderName,
+                                 audioFiles: audioFiles,
+                                 coverImage: coverImageFile.map { try? .init(contentsOf: $0) } ?? nil)
+            )
         }
     )
     
     static let testValue = Self(
         loadBook: { folderName in
-            return .success(.init(title: folderName, audioFiles: [URL(string: "file1.mp3")!], coverImageFile: nil))
+            return .success(.init(title: folderName, audioFiles: [URL(string: "file1.mp3")!], coverImage: nil))
         }
     )
     

@@ -9,10 +9,10 @@ import SwiftUI
 import ComposableArchitecture
 
 #Preview {
-    let environment = AudioPlayerEnvironment(audioManager: PlayerService(), mainQueue: .main)
+    let environment = AudioPlayerEnvironment(bundleName: "Fables by Glibov")
     
     AudioPlayerView(store: Store(initialState: AudioPlayerFeature.State()) {
-        AudioPlayerFeature(environment: environment, bundleName: MiniBookListenerApp.Constant.bundleName)
+        AudioPlayerFeature(environment: environment)
     })
 }
 
@@ -91,7 +91,7 @@ struct AudioPlayerView: View {
                     ActionBar(viewStore: viewStore).padding(.top, Constant.textPadding)
                 }
             }.onAppear {
-                store.send(.loadAudio)
+                store.send(.loadBook)
             }.onReceive(viewStore.publisher.errorMessage) { errorMessage in
                 showError = errorMessage != nil
             }

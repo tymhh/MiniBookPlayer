@@ -30,7 +30,7 @@ class BookServiceTests: XCTestCase {
         case .success(let book):
             XCTAssertEqual(book.title, "MockBook")
             XCTAssertEqual(book.audioFiles.count, 1)
-            XCTAssertNil(book.coverImageFile)
+            XCTAssertNil(book.coverImage)
         case .failure:
             XCTFail("Expected success but got failure")
         }

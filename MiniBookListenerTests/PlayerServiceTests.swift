@@ -6,78 +6,79 @@
 //
 
 import XCTest
+import ComposableArchitecture
+import Combine
 @testable import MiniBookListener
 
 class PlayerServiceTests: XCTestCase {
-    var mockAudioManager: MockPlayerService!
-
+    var playerClient: PlayerClient!
+    var timePublisher: PassthroughSubject<TimeInterval, Never>!
+    
     override func setUp() {
+        timePublisher = PassthroughSubject<TimeInterval, Never>()
+        playerClient = PlayerClient(
+            loadFiles: { _ in },
+            setTimePublisher: { _ in },
+            loadCurrentAudioFile: { return (true, 10.5, 1) },
+            play: { },
+            pause: { },
+            next: { return (true, 15.0, 2) },
+            previous: { return (true, 5.0, 0) },
+            changePlaybackSpeed: { speed in
+                XCTAssert(speed > 0, "Playback speed should be positive")
+            },
+            seek: { time in
+                XCTAssert(time >= 0, "Seek time should be non-negative")
+            },
+            metadata: { return "Test Metadata" },
+            startPlaybackTimeUpdates: { }
+        )
         super.setUp()
-        mockAudioManager = MockPlayerService()
-        mockAudioManager.setCurrentBook(.init(title: "Mock Book",
-                                              audioFiles: [URL(string: "file1.mp3")!, URL(string: "file2.mp3")!],
-                                              coverImageFile: nil))
     }
-
+    
     override func tearDown() {
-        mockAudioManager = nil
         super.tearDown()
     }
-
-    func testLoadAudioFiles() throws {
-        let result = try mockAudioManager.loadCurrentAudioFile()
-        XCTAssertTrue(result)
-        XCTAssertTrue(mockAudioManager.didLoadAudioFiles)
+    
+    func testLoadFiles() {
+        XCTAssertNoThrow(try playerClient.loadFiles([URL(string: "file://test.mp3")!]))
     }
     
-    func testPlayAudio() throws {
-        try mockAudioManager.play()
-        XCTAssertTrue(mockAudioManager.isPlaying)
+    func testSetTimePublisher() {
+        XCTAssertNoThrow(try playerClient.setTimePublisher(timePublisher))
     }
     
-    func testPauseAudio() {
-        mockAudioManager.pause()
-        XCTAssertFalse(mockAudioManager.isPlaying)
-    }
-
-    func testNextAudio() throws {
-        let result = try mockAudioManager.next()
-        XCTAssertTrue(result)
-        XCTAssertEqual(mockAudioManager.currentAudioIndex, 1)
+    func testLoadCurrentAudioFile() {
+        let (success, time, index) = try! playerClient.loadCurrentAudioFile()
+        XCTAssertTrue(success)
+        XCTAssertEqual(time, 10.5)
+        XCTAssertEqual(index, 1)
     }
     
-    func testPreviousAudio() throws {
-        mockAudioManager.currentAudioIndex = 1
-        let result = try mockAudioManager.previous()
-        XCTAssertTrue(result)
-        XCTAssertEqual(mockAudioManager.currentAudioIndex, 0)
+    func testNext() {
+        let (success, time, index) = try! playerClient.next()
+        XCTAssertTrue(success)
+        XCTAssertEqual(time, 15.0)
+        XCTAssertEqual(index, 2)
     }
     
-    func testPreviousAtFirstAudio() throws {
-        mockAudioManager.currentAudioIndex = 0
-        let result = try mockAudioManager.previous()
-        XCTAssertTrue(result)
-        XCTAssertEqual(mockAudioManager.currentAudioIndex, 0)
+    func testPrevious() {
+        let (success, time, index) = try! playerClient.previous()
+        XCTAssertTrue(success)
+        XCTAssertEqual(time, 5.0)
+        XCTAssertEqual(index, 0)
     }
-
+    
     func testChangePlaybackSpeed() {
-        mockAudioManager.changePlaybackSpeed(to: 1.5)
-        XCTAssertEqual(mockAudioManager.playbackSpeed, 1.5)
+        XCTAssertNoThrow(try playerClient.changePlaybackSpeed(1.5))
     }
     
-    func testSeekAudio() {
-        let seekTime: TimeInterval = 10.0
-        mockAudioManager.seek(to: seekTime)
-        XCTAssertEqual(mockAudioManager.seekTime, seekTime)
+    func testSeek() {
+        XCTAssertNoThrow(try playerClient.seek(30.0))
     }
     
-    func testGetCoverImageReturnsNil() {
-        let coverImage = mockAudioManager.getCoverImage()
-        XCTAssertNil(coverImage)
-    }
-
-    func testRetrieveMetadata() async {
-        let metadata = await mockAudioManager.metadata(forIdentifier: .commonIdentifierTitle)
-        XCTAssertEqual(metadata, "Mock Metadata")
+    func testMetadata() async throws {
+        let metadata = try await playerClient.metadata()
+        XCTAssertEqual(metadata, "Test Metadata")
     }
 }

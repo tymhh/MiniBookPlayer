@@ -10,15 +10,11 @@ import ComposableArchitecture
 
 @main
 struct MiniBookListenerApp: App {
-    struct Constant {
-        static let bundleName: String = "Fables by Glibov"
-    }
-    
-    let environment = AudioPlayerEnvironment(audioManager: PlayerService(), mainQueue: .main)
+    let environment = AudioPlayerEnvironment(bundleName: "Fables by Glibov")
     var body: some Scene {
         WindowGroup {
             AudioPlayerView(store: Store(initialState: AudioPlayerFeature.State()) {
-                AudioPlayerFeature(environment: environment, bundleName: Constant.bundleName)
+                AudioPlayerFeature(environment: environment)
             })
         }
     }
