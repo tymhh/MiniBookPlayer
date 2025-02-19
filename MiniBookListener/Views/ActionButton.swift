@@ -10,6 +10,7 @@ import SwiftUI
 struct ActionButton: View {
     let imageName: String
     let size: CGFloat = 32
+    var disabled: Bool = false
     let action: () -> Void
     
     var body: some View {
@@ -19,5 +20,6 @@ struct ActionButton: View {
                 .frame(width: size, height: size, alignment: .center)
                 .tint(Color.black)
         }
+        .disabled(disabled)
     }
 }

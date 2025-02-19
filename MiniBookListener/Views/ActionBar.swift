@@ -19,8 +19,10 @@ struct ActionBar: View {
     
     var body: some View {
         HStack(spacing: Constant.stackSpacing) {
+            let isBackwardDisabled = viewStore.currentAudio - 1 <= 0
             ActionButton(
                 imageName: "backward.end.fill",
+                disabled: isBackwardDisabled,
                 action: { viewStore.send(.previousButtonTapped) }
             ).scaleEffect(Constant.smallScale)
             ActionButton(
@@ -38,8 +40,10 @@ struct ActionBar: View {
                 imageName: "goforward.10",
                 action: { viewStore.send(.forwardButtonTapped) }
             ).scaleEffect(Constant.midScale)
+            let isForwardDisabled = viewStore.currentAudio == viewStore.numberOfAudio
             ActionButton(
                 imageName: "forward.end.fill",
+                disabled: isForwardDisabled,
                 action: { viewStore.send(.nextButtonTapped) }
             ).scaleEffect(Constant.smallScale)
         }
