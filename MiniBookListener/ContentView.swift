@@ -50,14 +50,21 @@ struct AudioPlayerView: View {
                     }
                 }
                 VStack {
-                    if let image = viewStore.coverImage {
-                        Image(uiImage: image)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .padding(.leading, Constant.imagePadding)
-                            .padding(.trailing, Constant.imagePadding)
-                            .padding(.bottom, Constant.stackSpacing)
+                    AsyncImage(url: viewStore.coverImageFile) { phase in
+                        switch phase {
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                        default:
+                            Image(systemName: "photo")
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundColor(.gray)
+                        }
                     }
+                    .padding(.horizontal, Constant.imagePadding)
+                    .padding(.bottom, Constant.stackSpacing)
                     Text("\(Constant.keyPointPrefix) \(viewStore.currentAudio) / \(viewStore.numberOfAudio)")
                     if let audioTitle = viewStore.currentAudioTitle {
                         Text(audioTitle)

@@ -11,5 +11,5 @@ import Foundation
 struct Book {
     let title: String
     let audioFiles: [URL]
-    let coverImage: Data?
+    let coverImageFile: URL?
 }

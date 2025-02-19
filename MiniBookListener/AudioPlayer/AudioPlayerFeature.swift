@@ -39,7 +39,7 @@ struct AudioPlayerFeature: Reducer {
         var currentTime: TimeInterval = 0
         var duration: TimeInterval = 0
         var playbackSpeed: Float = 1.0
-        var coverImage: UIImage?
+        var coverImageFile: URL?
         var currentAudioTitle: String?
         var currentAudio: Int = 1
         var numberOfAudio: Int = 0
@@ -48,7 +48,7 @@ struct AudioPlayerFeature: Reducer {
     
     enum Action {
         case loadBook
-        case loadAudio(UIImage?, Int)
+        case loadAudio(URL?, Int)
         case audioLoaded(TimeInterval, Int)
         case metadataResolved(String?)
         case setError(String?)
@@ -75,14 +75,14 @@ struct AudioPlayerFeature: Reducer {
                     case .success(let book):
                         try playerClient.loadFiles(book.audioFiles)
                         try playerClient.setTimePublisher(environment.playbackTimePublisher)
-                        let cover = book.coverImage.map { UIImage(data: $0) } ?? nil
+                        let cover = book.coverImageFile
                         await send(.loadAudio(cover, book.audioFiles.count))
                     case .failure(let error):
                         await send(.setError(error.localizedDescription))
                     }
                 }
             case .loadAudio(let cover, let count):
-                state.coverImage = cover
+                state.coverImageFile = cover
                 state.numberOfAudio = count
                 return .run { send in
                     let (_, duration, index) = try playerClient.loadCurrentAudioFile()

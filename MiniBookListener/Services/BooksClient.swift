@@ -44,14 +44,14 @@ extension BooksClient: DependencyKey {
             guard !audioFiles.isEmpty else { return .failure(BooksClientError.bookHasNoFiles) }
             return .success(Book(title: folderName,
                                  audioFiles: audioFiles,
-                                 coverImage: coverImageFile.map { try? .init(contentsOf: $0) } ?? nil)
+                                 coverImageFile: coverImageFile)
             )
         }
     )
     
     static let testValue = Self(
         loadBook: { folderName in
-            return .success(.init(title: folderName, audioFiles: [URL(string: "file1.mp3")!], coverImage: nil))
+            return .success(.init(title: folderName, audioFiles: [URL(string: "file1.mp3")!], coverImageFile: nil))
         }
     )
     
