@@ -41,6 +41,12 @@ struct AudioPlayerView: View {
                             .onTapGesture {
                                 hideSnackbar()
                             }
+                            .onAppear {
+                                Task {
+                                    try await Task.sleep(for: .seconds(3))
+                                    hideSnackbar()
+                                }
+                            }
                     }
                 }
                 VStack {
