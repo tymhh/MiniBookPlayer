@@ -96,6 +96,7 @@ struct AudioPlayerFeature: Reducer {
                     await send(.audioLoaded(duration, index))
                 }
             case .audioLoaded(let duration, let index):
+                playerClient.startPlaybackTimeUpdates()
                 state.duration = duration
                 state.currentAudio = index + 1
                 return .run { send in
@@ -106,7 +107,6 @@ struct AudioPlayerFeature: Reducer {
                 do {
                     let _ = try playerClient.play()
                     force ? state.isPlaying = true : state.isPlaying.toggle()
-                    playerClient.startPlaybackTimeUpdates()
                     if state.isPlaying {
                         return .publisher {
                             environment.currentTimePublisher
