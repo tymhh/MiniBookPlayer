@@ -72,23 +72,7 @@ struct AudioPlayerFeature: Reducer {
         Reduce { state, action in
             switch action {
             case .initialiseRemoteCommands(let store):
-                let commandCenter = MPRemoteCommandCenter.shared()
-                commandCenter.playCommand.isEnabled = true
-                commandCenter.pauseCommand.isEnabled = true
-                commandCenter.nextTrackCommand.isEnabled = true
-                commandCenter.previousTrackCommand.isEnabled = true
-                commandCenter.togglePlayPauseCommand.addTarget { _ in
-                    store.send(.playPauseButtonTapped(false))
-                    return .success
-                }
-                commandCenter.nextTrackCommand.addTarget { _ in
-                    store.send(.nextButtonTapped)
-                    return .success
-                }
-                commandCenter.previousTrackCommand.addTarget { _ in
-                    store.send(.previousButtonTapped)
-                    return .success
-                }
+                initialiseRemoteCommands(store)
                 return .none
             case .loadBook:
                 return .run { send in
@@ -223,6 +207,32 @@ struct AudioPlayerFeature: Reducer {
                 MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
                 return .none
             }
+        }
+    }
+    
+    fileprivate func initialiseRemoteCommands(_ store: StoreOf<AudioPlayerFeature>) {
+        let commandCenter = MPRemoteCommandCenter.shared()
+        commandCenter.playCommand.isEnabled = true
+        commandCenter.pauseCommand.isEnabled = true
+        commandCenter.nextTrackCommand.isEnabled = true
+        commandCenter.previousTrackCommand.isEnabled = true
+        commandCenter.changePlaybackPositionCommand.isEnabled = true
+        commandCenter.togglePlayPauseCommand.addTarget { _ in
+            store.send(.playPauseButtonTapped(false))
+            return .success
+        }
+        commandCenter.nextTrackCommand.addTarget { _ in
+            store.send(.nextButtonTapped)
+            return .success
+        }
+        commandCenter.previousTrackCommand.addTarget { _ in
+            store.send(.previousButtonTapped)
+            return .success
+        }
+        commandCenter.changePlaybackPositionCommand.addTarget { event in
+            guard let event = event as? MPChangePlaybackPositionCommandEvent else { return .commandFailed }
+            store.send(.seek(event.positionTime))
+            return .success
         }
     }
 }
