@@ -120,7 +120,7 @@ private final class PlayerService: NSObject, AVAudioPlayerDelegate {
     }
     
     func startPlaybackTimeUpdates()  {
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
             guard let self = self else { return }
             self.playbackTimePublisher.send(audioPlayer.currentTime)
         }

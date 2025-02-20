@@ -138,7 +138,6 @@ struct AudioPlayerFeature: Reducer {
                     let (duration, index) = try playerClient.previous()
                     state.isPlaying = false
                     return .run { send in
-                        _ = try playerClient.play()
                         await send(.audioLoaded(duration, index))
                         await send(.playPauseButtonTapped)
                     }
@@ -152,7 +151,6 @@ struct AudioPlayerFeature: Reducer {
                     let (duration, index) = try playerClient.next()
                     state.isPlaying = false
                     return .run { send in
-                        _ = try playerClient.play()
                         await send(.audioLoaded(duration, index))
                         await send(.playPauseButtonTapped)
                     }

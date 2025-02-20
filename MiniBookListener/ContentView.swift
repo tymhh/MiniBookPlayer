@@ -58,6 +58,7 @@ struct AudioPlayerView: View {
                 HStack {
                     Text(viewStore.currentTime.stringFromTimeInterval())
                         .padding(.leading, Constant.textPadding)
+                        .monospacedDigit()
                     Slider(
                         value: $sliderValue,
                         in: 0...viewStore.duration,
@@ -70,10 +71,13 @@ struct AudioPlayerView: View {
                         sliderValue = viewStore.currentTime
                     }.onReceive(viewStore.publisher.currentTime) { currentTime in
                         guard !isSliderEditing else { return }
-                        sliderValue = currentTime
+                        withAnimation {
+                            sliderValue = currentTime
+                        }
                     }
                     Text(viewStore.duration.stringFromTimeInterval())
                         .padding(.trailing, Constant.textPadding)
+                        .monospacedDigit()
                 }
                 
                 Button(action: { viewStore.send(.changePlaybackSpeed)}) {
