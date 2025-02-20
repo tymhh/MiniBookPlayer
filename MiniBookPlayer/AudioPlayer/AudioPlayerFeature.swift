@@ -7,7 +7,7 @@
 
 import ComposableArchitecture
 import SwiftUI
-import AVFoundation
+import MediaPlayer
 import Combine
 
 struct AudioPlayerEnvironment {
@@ -48,6 +48,7 @@ struct AudioPlayerFeature: Reducer {
     }
     
     enum Action {
+        case initialiseRemoteCommands(StoreOf<AudioPlayerFeature>)
         case loadBook
         case loadAudio(URL?, Int)
         case audioLoaded(TimeInterval, Int)
@@ -61,6 +62,7 @@ struct AudioPlayerFeature: Reducer {
         case seek(TimeInterval)
         case changePlaybackSpeed
         case updateCurrentTime(TimeInterval)
+        case updateNowPlayingInfo
     }
     
     @Dependency(\.booksClient) var booksClient
@@ -69,6 +71,25 @@ struct AudioPlayerFeature: Reducer {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .initialiseRemoteCommands(let store):
+                let commandCenter = MPRemoteCommandCenter.shared()
+                commandCenter.playCommand.isEnabled = true
+                commandCenter.pauseCommand.isEnabled = true
+                commandCenter.nextTrackCommand.isEnabled = true
+                commandCenter.previousTrackCommand.isEnabled = true
+                commandCenter.togglePlayPauseCommand.addTarget { _ in
+                    store.send(.playPauseButtonTapped(false))
+                    return .success
+                }
+                commandCenter.nextTrackCommand.addTarget { _ in
+                    store.send(.nextButtonTapped)
+                    return .success
+                }
+                commandCenter.previousTrackCommand.addTarget { _ in
+                    store.send(.previousButtonTapped)
+                    return .success
+                }
+                return .none
             case .loadBook:
                 return .run { send in
                     let result = try booksClient.loadBook(environment.bundleName)
@@ -170,7 +191,9 @@ struct AudioPlayerFeature: Reducer {
                 }
             case .metadataResolved(let title):
                 state.currentAudioTitle = title
-                return .none
+                return .run { send in
+                    await send(.updateNowPlayingInfo)
+                }
             case .updateCurrentTime(let newTime):
                 if newTime == state.duration {
                     return .run { send in await send(.nextButtonTapped) }
@@ -183,6 +206,21 @@ struct AudioPlayerFeature: Reducer {
                     state.isBookLoaded = false
                 }
                 state.errorMessage = error?.localizedDescription
+                return .none
+            case .updateNowPlayingInfo:
+                var nowPlayingInfo: [String: Any] = [
+                    MPMediaItemPropertyPlaybackDuration: state.duration,
+                    MPNowPlayingInfoPropertyElapsedPlaybackTime: state.currentTime,
+                    MPNowPlayingInfoPropertyPlaybackRate: state.playbackSpeed
+                ]
+                state.currentAudioTitle.map { nowPlayingInfo[MPMediaItemPropertyTitle] = $0 }
+                if let url = state.coverImageFile,
+                   let data = try? Data(contentsOf: url),
+                   let image = UIImage(data: data) {
+                    nowPlayingInfo[MPMediaItemPropertyArtwork] =
+                    MPMediaItemArtwork(boundsSize: image.size) { size in image }
+                }
+                MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
                 return .none
             }
         }

@@ -9,6 +9,7 @@ import Foundation
 import ComposableArchitecture
 import Combine
 import AVFoundation
+import MediaPlayer
 
 enum PlayerServiceError: String, LocalizedError {
     case lastFileInBook
@@ -68,8 +69,15 @@ private final class PlayerService: NSObject, AVAudioPlayerDelegate {
     
     private var playbackTimePublisher = PassthroughSubject<TimeInterval, Never>()
     private var audioPlayer = AVAudioPlayer()
+    private let audioSession = AVAudioSession.sharedInstance()
     private var files: [URL] = []
     private var currentAudioIndex: Int = 0
+    
+    override init() {
+        super.init()
+        try? self.audioSession.setCategory(AVAudioSession.Category.playback)
+        try? self.audioSession.setActive(true)
+    }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         guard flag else { return }
@@ -87,6 +95,7 @@ private final class PlayerService: NSObject, AVAudioPlayerDelegate {
     func loadCurrentAudioFile() throws -> (TimeInterval, Int) {
         let file = files[currentAudioIndex]
         let rate = audioPlayer.rate == 0 ? Constant.defaultRate : audioPlayer.rate
+        
         audioPlayer = try AVAudioPlayer(contentsOf: file)
         audioPlayer.enableRate = true
         audioPlayer.delegate = self

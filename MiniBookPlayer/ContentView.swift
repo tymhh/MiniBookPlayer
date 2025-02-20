@@ -92,6 +92,7 @@ struct AudioPlayerView: View {
                 
                 ActionBar(viewStore: viewStore).padding(.top, Constant.textPadding)
             }.onAppear {
+                store.send(.initialiseRemoteCommands(store))
                 store.send(.loadBook)
             }.onReceive(viewStore.publisher.errorMessage) { errorMessage in
                 showError = errorMessage != nil
