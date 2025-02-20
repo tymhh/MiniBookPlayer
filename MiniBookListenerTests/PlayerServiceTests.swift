@@ -19,11 +19,11 @@ class PlayerServiceTests: XCTestCase {
         playerClient = PlayerClient(
             loadFiles: { _ in },
             setTimePublisher: { _ in },
-            loadCurrentAudioFile: { return (true, 10.5, 1) },
-            play: { },
+            loadCurrentAudioFile: { return (10.5, 1) },
+            play: { true },
             pause: { },
-            next: { return (true, 15.0, 2) },
-            previous: { return (true, 5.0, 0) },
+            next: { return (15.0, 2) },
+            previous: { return (5.0, 0) },
             changePlaybackSpeed: { speed in
                 XCTAssert(speed > 0, "Playback speed should be positive")
             },
@@ -49,22 +49,19 @@ class PlayerServiceTests: XCTestCase {
     }
     
     func testLoadCurrentAudioFile() {
-        let (success, time, index) = try! playerClient.loadCurrentAudioFile()
-        XCTAssertTrue(success)
+        let (time, index) = try! playerClient.loadCurrentAudioFile()
         XCTAssertEqual(time, 10.5)
         XCTAssertEqual(index, 1)
     }
     
     func testNext() {
-        let (success, time, index) = try! playerClient.next()
-        XCTAssertTrue(success)
+        let (time, index) = try! playerClient.next()
         XCTAssertEqual(time, 15.0)
         XCTAssertEqual(index, 2)
     }
     
     func testPrevious() {
-        let (success, time, index) = try! playerClient.previous()
-        XCTAssertTrue(success)
+        let (time, index) = try! playerClient.previous()
         XCTAssertEqual(time, 5.0)
         XCTAssertEqual(index, 0)
     }
