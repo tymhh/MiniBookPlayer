@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  MiniBookListener
+//  MiniBookPlayer
 //
 //  Created by Tim Hazhyi on 24.11.2023.
 //

@@ -1,6 +1,6 @@
 //
 //  BookServiceTests.swift
-//  MiniBookListener
+//  MiniBookPlayer
 //
 //  Created by Tim Hazhyi on 18.02.2025.
 //
@@ -9,7 +9,7 @@
 import XCTest
 import AVFoundation
 import ComposableArchitecture
-@testable import MiniBookListener
+@testable import MiniBookPlayer
 
 class BookServiceTests: XCTestCase {
     @Dependency(\.booksClient) var booksClient

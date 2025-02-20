@@ -1,6 +1,6 @@
 //
 //  PlayerService.swift
-//  MiniBookListener
+//  MiniBookPlayer
 //
 //  Created by Tim Hazhyi on 26.11.2023.
 //

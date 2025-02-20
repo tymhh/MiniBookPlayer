@@ -1,6 +1,6 @@
 //
 //  PlayerServiceTests.swift
-//  MiniBookListener
+//  MiniBookPlayer
 //
 //  Created by Tim Hazhyi on 18.02.2025.
 //
@@ -8,7 +8,7 @@
 import XCTest
 import ComposableArchitecture
 import Combine
-@testable import MiniBookListener
+@testable import MiniBookPlayer
 
 class PlayerServiceTests: XCTestCase {
     var playerClient: PlayerClient!

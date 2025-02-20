@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A33187132B10DAD8006445E4 /* MiniBookListenerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33187122B10DAD8006445E4 /* MiniBookListenerApp.swift */; };
+		A33187132B10DAD8006445E4 /* MiniBookPlayerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33187122B10DAD8006445E4 /* MiniBookPlayerApp.swift */; };
 		A33187152B10DAD8006445E4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33187142B10DAD8006445E4 /* ContentView.swift */; };
 		A33187172B10DADA006445E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A33187162B10DADA006445E4 /* Assets.xcassets */; };
 		A331871B2B10DADA006445E4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A331871A2B10DADA006445E4 /* Preview Assets.xcassets */; };
@@ -36,13 +36,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A331870F2B10DAD8006445E4 /* MiniBookListener.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiniBookListener.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A33187122B10DAD8006445E4 /* MiniBookListenerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniBookListenerApp.swift; sourceTree = "<group>"; };
+		A331870F2B10DAD8006445E4 /* MiniBookPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiniBookPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A33187122B10DAD8006445E4 /* MiniBookPlayerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniBookPlayerApp.swift; sourceTree = "<group>"; };
 		A33187142B10DAD8006445E4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A33187162B10DADA006445E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A33187182B10DADA006445E4 /* MiniBookListener.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MiniBookListener.entitlements; sourceTree = "<group>"; };
+		A33187182B10DADA006445E4 /* MiniBookPlayer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MiniBookPlayer.entitlements; sourceTree = "<group>"; };
 		A331871A2B10DADA006445E4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		A33187202B10DADA006445E4 /* MiniBookListenerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MiniBookListenerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A33187202B10DADA006445E4 /* MiniBookPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MiniBookPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A33187422B13A494006445E4 /* Fables by Glibov.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "Fables by Glibov.bundle"; sourceTree = "<group>"; };
 		A33187452B1404D2006445E4 /* PlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerService.swift; sourceTree = "<group>"; };
 		A33187472B14069C006445E4 /* AudioPlayerFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerFeature.swift; sourceTree = "<group>"; };
@@ -78,8 +78,8 @@
 		A33187062B10DAD8006445E4 = {
 			isa = PBXGroup;
 			children = (
-				A33187112B10DAD8006445E4 /* MiniBookListener */,
-				A33187232B10DADA006445E4 /* MiniBookListenerTests */,
+				A33187112B10DAD8006445E4 /* MiniBookPlayer */,
+				A33187232B10DADA006445E4 /* MiniBookPlayerTests */,
 				A33187102B10DAD8006445E4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,13 +87,13 @@
 		A33187102B10DAD8006445E4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A331870F2B10DAD8006445E4 /* MiniBookListener.app */,
-				A33187202B10DADA006445E4 /* MiniBookListenerTests.xctest */,
+				A331870F2B10DAD8006445E4 /* MiniBookPlayer.app */,
+				A33187202B10DADA006445E4 /* MiniBookPlayerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A33187112B10DAD8006445E4 /* MiniBookListener */ = {
+		A33187112B10DAD8006445E4 /* MiniBookPlayer */ = {
 			isa = PBXGroup;
 			children = (
 				A380B3072D66288500A97E8A /* Model */,
@@ -101,14 +101,14 @@
 				A33187502B1409D4006445E4 /* Resources */,
 				A33187492B14094A006445E4 /* Views */,
 				A33187442B140435006445E4 /* AudioPlayer */,
-				A33187122B10DAD8006445E4 /* MiniBookListenerApp.swift */,
+				A33187122B10DAD8006445E4 /* MiniBookPlayerApp.swift */,
 				A33187142B10DAD8006445E4 /* ContentView.swift */,
 				A33187162B10DADA006445E4 /* Assets.xcassets */,
-				A33187182B10DADA006445E4 /* MiniBookListener.entitlements */,
+				A33187182B10DADA006445E4 /* MiniBookPlayer.entitlements */,
 				A33187192B10DADA006445E4 /* Preview Content */,
 				A331874E2B1409C9006445E4 /* Utility.swift */,
 			);
-			path = MiniBookListener;
+			path = MiniBookPlayer;
 			sourceTree = "<group>";
 		};
 		A33187192B10DADA006445E4 /* Preview Content */ = {
@@ -119,13 +119,13 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		A33187232B10DADA006445E4 /* MiniBookListenerTests */ = {
+		A33187232B10DADA006445E4 /* MiniBookPlayerTests */ = {
 			isa = PBXGroup;
 			children = (
 				A37829CC2D64D5B20068C951 /* BookServiceTests.swift */,
 				A37829C42D64D1AE0068C951 /* PlayerServiceTests.swift */,
 			);
-			path = MiniBookListenerTests;
+			path = MiniBookPlayerTests;
 			sourceTree = "<group>";
 		};
 		A33187442B140435006445E4 /* AudioPlayer */ = {
@@ -174,9 +174,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A331870E2B10DAD8006445E4 /* MiniBookListener */ = {
+		A331870E2B10DAD8006445E4 /* MiniBookPlayer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A33187342B10DADA006445E4 /* Build configuration list for PBXNativeTarget "MiniBookListener" */;
+			buildConfigurationList = A33187342B10DADA006445E4 /* Build configuration list for PBXNativeTarget "MiniBookPlayer" */;
 			buildPhases = (
 				A331870B2B10DAD8006445E4 /* Sources */,
 				A331870C2B10DAD8006445E4 /* Frameworks */,
@@ -186,17 +186,17 @@
 			);
 			dependencies = (
 			);
-			name = MiniBookListener;
+			name = MiniBookPlayer;
 			packageProductDependencies = (
 				A331873E2B10DBDD006445E4 /* ComposableArchitecture */,
 			);
 			productName = MiniBookListener;
-			productReference = A331870F2B10DAD8006445E4 /* MiniBookListener.app */;
+			productReference = A331870F2B10DAD8006445E4 /* MiniBookPlayer.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A331871F2B10DADA006445E4 /* MiniBookListenerTests */ = {
+		A331871F2B10DADA006445E4 /* MiniBookPlayerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A33187372B10DADA006445E4 /* Build configuration list for PBXNativeTarget "MiniBookListenerTests" */;
+			buildConfigurationList = A33187372B10DADA006445E4 /* Build configuration list for PBXNativeTarget "MiniBookPlayerTests" */;
 			buildPhases = (
 				A331871C2B10DADA006445E4 /* Sources */,
 				A331871D2B10DADA006445E4 /* Frameworks */,
@@ -207,9 +207,9 @@
 			dependencies = (
 				A33187222B10DADA006445E4 /* PBXTargetDependency */,
 			);
-			name = MiniBookListenerTests;
+			name = MiniBookPlayerTests;
 			productName = MiniBookListenerTests;
-			productReference = A33187202B10DADA006445E4 /* MiniBookListenerTests.xctest */;
+			productReference = A33187202B10DADA006445E4 /* MiniBookPlayerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -231,7 +231,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A331870A2B10DAD8006445E4 /* Build configuration list for PBXProject "MiniBookListener" */;
+			buildConfigurationList = A331870A2B10DAD8006445E4 /* Build configuration list for PBXProject "MiniBookPlayer" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -247,8 +247,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A331870E2B10DAD8006445E4 /* MiniBookListener */,
-				A331871F2B10DADA006445E4 /* MiniBookListenerTests */,
+				A331870E2B10DAD8006445E4 /* MiniBookPlayer */,
+				A331871F2B10DADA006445E4 /* MiniBookPlayerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -285,7 +285,7 @@
 				A37829C92D64D4D60068C951 /* BooksClient.swift in Sources */,
 				A33187482B14069C006445E4 /* AudioPlayerFeature.swift in Sources */,
 				A33187542B149DAA006445E4 /* ActionBar.swift in Sources */,
-				A33187132B10DAD8006445E4 /* MiniBookListenerApp.swift in Sources */,
+				A33187132B10DAD8006445E4 /* MiniBookPlayerApp.swift in Sources */,
 				A380B3082D66288500A97E8A /* Book.swift in Sources */,
 				A331874B2B140962006445E4 /* ActionButton.swift in Sources */,
 			);
@@ -305,7 +305,7 @@
 /* Begin PBXTargetDependency section */
 		A33187222B10DADA006445E4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A331870E2B10DAD8006445E4 /* MiniBookListener */;
+			target = A331870E2B10DAD8006445E4 /* MiniBookPlayer */;
 			targetProxy = A33187212B10DADA006445E4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -430,10 +430,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = MiniBookListener/MiniBookListener.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MiniBookPlayer/MiniBookPlayer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MiniBookListener/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"MiniBookPlayer/Preview Content\"";
 				DEVELOPMENT_TEAM = TGE7YRQW2V;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -453,7 +453,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tymh.MiniBookListener;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tymh.MiniBookPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -469,10 +469,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = MiniBookListener/MiniBookListener.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MiniBookPlayer/MiniBookPlayer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MiniBookListener/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"MiniBookPlayer/Preview Content\"";
 				DEVELOPMENT_TEAM = TGE7YRQW2V;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -492,7 +492,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tymh.MiniBookListener;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tymh.MiniBookPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -514,14 +514,14 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tymh.MiniBookListenerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tymh.MiniBookPlayerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MiniBookListener.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MiniBookListener";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MiniBookPlayer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MiniBookPlayer";
 			};
 			name = Debug;
 		};
@@ -536,21 +536,21 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tymh.MiniBookListenerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tymh.MiniBookPlayerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MiniBookListener.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MiniBookListener";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MiniBookPlayer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MiniBookPlayer";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A331870A2B10DAD8006445E4 /* Build configuration list for PBXProject "MiniBookListener" */ = {
+		A331870A2B10DAD8006445E4 /* Build configuration list for PBXProject "MiniBookPlayer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A33187322B10DADA006445E4 /* Debug */,
@@ -559,7 +559,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A33187342B10DADA006445E4 /* Build configuration list for PBXNativeTarget "MiniBookListener" */ = {
+		A33187342B10DADA006445E4 /* Build configuration list for PBXNativeTarget "MiniBookPlayer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A33187352B10DADA006445E4 /* Debug */,
@@ -568,7 +568,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A33187372B10DADA006445E4 /* Build configuration list for PBXNativeTarget "MiniBookListenerTests" */ = {
+		A33187372B10DADA006445E4 /* Build configuration list for PBXNativeTarget "MiniBookPlayerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A33187382B10DADA006445E4 /* Debug */,
