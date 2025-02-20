@@ -35,7 +35,7 @@ struct ActionBar: View {
             ActionButton(
                 imageName: imageName,
                 disabled: !viewStore.isBookLoaded,
-                action: { viewStore.send(.playPauseButtonTapped) }
+                action: { viewStore.send(.playPauseButtonTapped(false)) }
             )
             
             ActionButton(

@@ -53,7 +53,7 @@ struct AudioPlayerFeature: Reducer {
         case audioLoaded(TimeInterval, Int)
         case metadataResolved(String?)
         case setError(Error?)
-        case playPauseButtonTapped
+        case playPauseButtonTapped(Bool)
         case backwardButtonTapped
         case forwardButtonTapped
         case previousButtonTapped
@@ -97,10 +97,10 @@ struct AudioPlayerFeature: Reducer {
                     let title = try await playerClient.metadata()
                     await send(.metadataResolved(title))
                 }
-            case .playPauseButtonTapped:
+            case .playPauseButtonTapped(let force):
                 do {
                     let _ = try playerClient.play()
-                    state.isPlaying.toggle()
+                    force ? state.isPlaying = true : state.isPlaying.toggle()
                     playerClient.startPlaybackTimeUpdates()
                     if state.isPlaying {
                         return .publisher {
@@ -136,10 +136,9 @@ struct AudioPlayerFeature: Reducer {
             case .previousButtonTapped:
                 do {
                     let (duration, index) = try playerClient.previous()
-                    state.isPlaying = false
                     return .run { send in
                         await send(.audioLoaded(duration, index))
-                        await send(.playPauseButtonTapped)
+                        await send(.playPauseButtonTapped(true))
                     }
                 } catch {
                     return .run { send in
@@ -149,10 +148,9 @@ struct AudioPlayerFeature: Reducer {
             case .nextButtonTapped:
                 do {
                     let (duration, index) = try playerClient.next()
-                    state.isPlaying = false
                     return .run { send in
                         await send(.audioLoaded(duration, index))
-                        await send(.playPauseButtonTapped)
+                        await send(.playPauseButtonTapped(true))
                     }
                 } catch {
                     return .run { send in
